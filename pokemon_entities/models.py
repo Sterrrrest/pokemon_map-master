@@ -4,6 +4,12 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     title = models.CharField('название', max_length=200)
     photo = models.ImageField(upload_to='pokemon', null=True)
+    level = models.IntegerField("уровень", blank=True)
+    health = models.IntegerField("здоровье", blank=True)
+    attack = models.IntegerField("атака", blank=True)
+    defense = models.IntegerField("защита", blank=True)
+    endurance = models.IntegerField("выносливость", blank=True)
+
 
     def __str__(self):
         return f'{self.title}'
