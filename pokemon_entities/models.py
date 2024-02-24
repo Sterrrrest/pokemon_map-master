@@ -11,4 +11,5 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     lat = models.FloatField("lat", max_length=200)
     lon = models.FloatField("lon", max_length=200)
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
 # your models here
