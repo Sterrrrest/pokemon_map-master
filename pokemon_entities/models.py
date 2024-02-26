@@ -2,7 +2,9 @@ from django.db import models  # noqa F401
 
 
 class Pokemon(models.Model):
-    title = models.CharField('название', max_length=200)
+    title_ru = models.CharField('название', max_length=200)
+    title_jp = models.CharField('японское название', max_length=200, blank=True)
+    title_en = models.CharField('английское название', max_length=200, blank=True)
     photo = models.ImageField(upload_to='Downloads', null=True)
     description = models.TextField("описание", max_length=1000, blank=True)
     level = models.IntegerField("уровень", blank=True)
@@ -13,7 +15,7 @@ class Pokemon(models.Model):
 
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.title_ru}'
 
 class PokemonEntity(models.Model):
     lat = models.FloatField("lat", max_length=200)
