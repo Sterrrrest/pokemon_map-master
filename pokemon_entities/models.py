@@ -4,6 +4,7 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     title = models.CharField('название', max_length=200)
     photo = models.ImageField(upload_to='Downloads', null=True)
+    description = models.TextField("описание", max_length=1000, blank=True)
     level = models.IntegerField("уровень", blank=True)
     health = models.IntegerField("здоровье", blank=True)
     attack = models.IntegerField("атака", blank=True)

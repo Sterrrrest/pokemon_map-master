@@ -15,7 +15,7 @@ DEFAULT_IMAGE_URL = (
 )
 
 
-def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
+def add_pokemon(folium_map, lat, lon,image_url=DEFAULT_IMAGE_URL):
     icon = folium.features.CustomIcon(
         image_url,
         icon_size=(50, 50),
@@ -74,9 +74,17 @@ def show_pokemon(request, pokemon_id):
     add_pokemon(
         folium_map, pokemon_entity.lat,
         pokemon_entity.lon,
-        pokemon.photo.path
+        pokemon.photo.path,
     )
 
+    # pokemons_on_page = []
+    pokemons_on_page = ({
+        'pokemon_id': pokemon.id,
+        'img_url': pokemon.photo.path,
+        'title_ru': pokemon.title,
+        'description': pokemon.description,
+    })
+
     return render(request, 'pokemon.html', context={
-        'map': folium_map._repr_html_(), 'pokemon': pokemon
+        'map': folium_map._repr_html_(), 'pokemon': pokemons_on_page
     })
