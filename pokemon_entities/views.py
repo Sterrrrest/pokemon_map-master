@@ -29,7 +29,6 @@ def add_pokemon(folium_map, lat, lon,image_url=DEFAULT_IMAGE_URL):
 
 
 def show_all_pokemons(request):
-    pokemons = Pokemon.objects.all()
     pokemons_entities = PokemonEntity.objects.all()
     visible_pokemons = pokemons_entities.filter(appeared_at__lt=localtime(), disappeared_at__gt=localtime())
 
