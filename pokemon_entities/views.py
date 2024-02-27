@@ -38,14 +38,14 @@ def show_all_pokemons(request):
         add_pokemon(
             folium_map, visible_pokemon.lat,
             visible_pokemon.lon,
-            visible_pokemon.pokemon.photo.path
+            HttpRequest.build_absolute_uri(visible_pokemon.pokemon.photo.url)
         )
 
     pokemons_on_page = []
     for visible_pokemon in visible_pokemons:
         pokemons_on_page.append({
             'pokemon_id': visible_pokemon.pokemon.id,
-            'img_url': visible_pokemon.pokemon.photo.path,
+            'img_url': HttpRequest.build_absolute_uri(visible_pokemon.pokemon.photo.url),
             'title_ru': visible_pokemon.pokemon.title_ru,
         })
 
@@ -60,21 +60,48 @@ def show_pokemon(request, pokemon_id):
     pokemons_entities = PokemonEntity.objects.all()
     pokemon_entity = pokemons_entities.get(pokemon=pokemon)
 
+
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     add_pokemon(
         folium_map, pokemon_entity.lat,
         pokemon_entity.lon,
-        pokemon.photo.path,
+        HttpRequest.build_absolute_uri(pokemon.photo.url),
     )
 
-    pokemons_on_page = ({
-        'pokemon_id': pokemon.id,
-        'img_url': pokemon.photo.path,
-        'title_ru': pokemon.title_ru,
-        'title_en': pokemon.title_en,
-        'title_jp': pokemon.title_jp,
-        'description': pokemon.description,
+    if pokemon.previous_evolution is None:
+        pokemons_on_page = ({
+            'pokemon_id': pokemon.id,
+            'img_url': HttpRequest.build_absolute_uri(pokemon.photo.url),
+            'title_ru': pokemon.title_ru,
+            'title_en': pokemon.title_en,
+            'title_jp': pokemon.title_jp,
+            'description': pokemon.description,
+            # 'next_evolution':
+            #     {
+            #         "title_ru": pokemon.next_evolution.title_ru,
+            #         "pokemon_id": pokemon.next_evolution.id,
+            #         "img_url": pokemon.next_evolution.photo.path
+            #     },
+            # 'previous_evolution': {
+            #     "title_ru": pokemon.previous_evolution.title_ru,
+            #     "pokemon_id": pokemon.previous_evolution.id,
+            #     "img_url": pokemon.previous_evolution.photo.path},
+        })
+    else:
+        pokemons_on_page = ({
+            'pokemon_id': pokemon.id,
+            'img_url': HttpRequest.build_absolute_uri(pokemon.photo.url),
+            'title_ru': pokemon.title_ru,
+            'title_en': pokemon.title_en,
+            'title_jp': pokemon.title_jp,
+            'description': pokemon.description,
+            'previous_evolution': {
+                "title_ru": pokemon.previous_evolution.title_ru,
+                "pokemon_id": pokemon.previous_evolution.id,
+                "img_url": pokemon.previous_evolution.photo.url
+            },
     })
+
 
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemons_on_page
