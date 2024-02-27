@@ -7,8 +7,9 @@ class Pokemon(models.Model):
     title_en = models.CharField('английское название', max_length=200, blank=True)
     photo = models.ImageField(upload_to='Downloads', null=True, default=None)
     description = models.TextField("описание", max_length=1000, blank=True)
-    # next_evolution = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, default=None)
-    previous_evolution = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    # next_evolution = models.ForeignKey(blank=True, null=True, related_name='previous_evolution')
+    previous_evolution = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True,
+                                           null=True, related_name='Pokemon')
     level = models.IntegerField("уровень", blank=True)
     health = models.IntegerField("здоровье", blank=True)
     attack = models.IntegerField("атака", blank=True)
