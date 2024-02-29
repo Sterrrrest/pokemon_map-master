@@ -3,8 +3,8 @@ from django.db import models  # noqa F401
 
 class Pokemon(models.Model):
     title_ru = models.CharField('название', max_length=200)
-    title_jp = models.CharField('японское название', max_length=200)
-    title_en = models.CharField('английское название', max_length=200)
+    title_jp = models.CharField('японское название', max_length=200, blank=True)
+    title_en = models.CharField('английское название', max_length=200, blank=True)
     photo = models.ImageField(verbose_name='Фото', upload_to='Downloads', null=True, default=None)
     description = models.TextField("описание")
     previous_evolution = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Предыдущая эволюция', blank=True,
