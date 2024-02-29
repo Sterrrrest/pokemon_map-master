@@ -12,7 +12,7 @@ class Pokemon(models.Model):
 
 
     def __str__(self):
-        return f'{self.title_ru}'
+        return self.title_ru
 
 class PokemonEntity(models.Model):
     lat = models.FloatField("lat", max_length=200)
