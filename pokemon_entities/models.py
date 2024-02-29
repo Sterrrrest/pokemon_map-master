@@ -8,7 +8,7 @@ class Pokemon(models.Model):
     photo = models.ImageField(verbose_name='Фото', upload_to='Downloads', null=True)
     description = models.TextField("описание")
     previous_evolution = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Предыдущая эволюция', blank=True,
-                                           null=True, related_name='Pokemon')
+                                           null=True, related_name='pokemons')
 
 
     def __str__(self):
@@ -17,7 +17,7 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     lat = models.FloatField("lat")
     lon = models.FloatField("lon")
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='PokemonEntity')
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='entities')
     appeared_at = models.DateTimeField("appeared_at")
     disappeared_at = models.DateTimeField("disappeared_at")
     level = models.IntegerField("уровень", null=True, blank=True)

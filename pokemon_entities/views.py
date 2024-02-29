@@ -78,12 +78,12 @@ def show_pokemon(request, pokemon_id):
                 'description': pokemon.description,
                 'next_evolution':
                     {
-                        "title_ru": pokemon.Pokemon.all()[0].title_ru,
-                        "pokemon_id": pokemon.Pokemon.all()[0].id,
-                        "img_url": request.build_absolute_uri(pokemon.Pokemon.all()[0].photo.url)
+                        "title_ru": pokemon.pokemons.first().title_ru,
+                        "pokemon_id": pokemon.pokemons.first().id,
+                        "img_url": request.build_absolute_uri(pokemon.pokemons.first().photo.url)
                     },
             })
-        elif not pokemon.Pokemon.all():
+        elif not pokemon.pokemons.all():
             pokemons_on_page = ({
                 'pokemon_id': pokemon.id,
                 'img_url': request.build_absolute_uri(pokemon.photo.url),
@@ -113,9 +113,9 @@ def show_pokemon(request, pokemon_id):
                     },
                 'next_evolution':
                     {
-                        "title_ru": pokemon.Pokemon.all()[0].title_ru,
-                        "pokemon_id": pokemon.Pokemon.all()[0].id,
-                        "img_url": request.build_absolute_uri(pokemon.Pokemon.all()[0].photo.url)
+                        "title_ru": pokemon.pokemons.first().title_ru,
+                        "pokemon_id": pokemon.pokemons.first().id,
+                        "img_url": request.build_absolute_uri(pokemon.pokemons.first().photo.url)
                     },
             })
 
