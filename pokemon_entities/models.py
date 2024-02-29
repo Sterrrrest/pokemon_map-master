@@ -9,11 +9,6 @@ class Pokemon(models.Model):
     description = models.TextField("описание", max_length=1000)
     previous_evolution = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Предыдущая эволюция', blank=True,
                                            null=True, related_name='Pokemon')
-    level = models.IntegerField("уровень", null=True, blank=True)
-    health = models.IntegerField("здоровье", null=True, blank=True)
-    attack = models.IntegerField("атака", null=True, blank=True)
-    defense = models.IntegerField("защита", null=True, blank=True)
-    stamina = models.IntegerField("выносливость", null=True, blank=True)
 
 
     def __str__(self):
@@ -25,4 +20,9 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
     appeared_at = models.DateTimeField("appeared_at")
     disappeared_at = models.DateTimeField("disappeared_at")
+    level = models.IntegerField("уровень", null=True, blank=True)
+    health = models.IntegerField("здоровье", null=True, blank=True)
+    attack = models.IntegerField("атака", null=True, blank=True)
+    defense = models.IntegerField("защита", null=True, blank=True)
+    stamina = models.IntegerField("выносливость", null=True, blank=True)
 # your models here
