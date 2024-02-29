@@ -65,7 +65,7 @@ def show_pokemon(request, pokemon_id):
         add_pokemon(
             folium_map, pokemon_entity.lat,
             pokemon_entity.lon,
-            pokemon.photo.path,
+            request.build_absolute_uri(pokemon.photo.url)
         )
 
         if pokemon.previous_evolution is None:
